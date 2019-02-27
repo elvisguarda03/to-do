@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"></meta>
+<title>Cadastro de Lembrete</title>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body {
+	background-image: url("resources/images/background.jpeg");
+	width: 100%;
+	height =: 100%;
+}
+</style>
+</head>
+<body>
+	<div class="container" style="padding: 60px">
+		<div class="jumbotron" align="center">
+			<div align="left">
+				<h2>Novo Lembrete</h2>
+				<h5 style="font-weight: normal;">Crie os seus lembretes para
+					que os seus compromissos não sejam esquecidos!</h5>
+			</div>
+			<form th:action="@{save}" th:object="${lembrete}"
+				data-toggle="validator" role="form" method="post">
+				<div class="form-group row">
+					<div class="col-sm-4">
+						<label for="titulo">Título</label> <input type="text"
+							class="form-control" id="titulo" placeholder="Digite seu título"
+							data-error="Título obrigatório" required /> <span
+							class="glyphicon form-control-feedback" aria-hidden="true"></span>
+						<div class="help-block with-errors"></div>
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-sm-4">
+						<label for="descricao">Descrição</label> <input type="text"
+							id="descricao" class="form-control"
+							placeholder="Digite sua Descrição" />
+					</div>
+				</div>
+				<div class="form-group row">
+					<div class="col-sm-4">
+						<label for="data">Data</label> <input id="data" type="date"
+							pattern="dd/MM/yyyy" name="data" class="form-control"
+							data-error="Data obrigatória!" required /> <span
+							class="glyphicon form-control-feedback" aria-hidden="true"></span>
+						<div class="help-block with-errors"></div>
+						<small id="titulo" class="form-text text-muted">Seus
+							lembretes estarão seguros e ao seu alcance em qualquer lugar</small>
+					</div>
+				</div>
+				<div class="form-group" align="left">
+					<button type="submit" class="btn btn-info bt-30"
+						autofocus="autofocus">Salvar Lembrete</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script type="text/javascript"
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/validator.js"></script>
+</body>
+</html>
