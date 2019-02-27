@@ -15,21 +15,23 @@ body {
 <body>
 	<form>
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		  <a class="navbar-brand" href="/" fixed="top">Cadastro de Lembretes</a>
-		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-		    <span class="navbar-toggler-icon"></span>
-		  </button>
-		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		    	<ul class="navbar-nav mr-auto">
-		      		<li class="nav-item active">
-		        		<a class="nav-link" href="/">Cadastrar<span class="sr-only">(current)</span></a>
-		      		</li>
-		      		<li class="nav-item">
-		        		<a class="nav-link" href="/lembretes">Visualizar Lembretes</a>
-		      		</li>
-		    	</ul>
-		   	</div>
-		  </nav>
+			<a class="navbar-brand" href="/" fixed="top">Cadastro de
+				Lembretes</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active"><a class="nav-link" href="/">Cadastrar<span
+							class="sr-only">(current)</span></a></li>
+					<li class="nav-item"><a class="nav-link" href="/lembretes">Visualizar
+							Lembretes</a></li>
+				</ul>
+			</div>
+		</nav>
 	</form>
 
 
@@ -40,16 +42,15 @@ body {
 				<h5 style="font-weight: normal;">Crie os seus lembretes para
 					que os seus compromissos não sejam esquecidos!</h5>
 			</div>
-			<div th:each="m : ${msgs}">
-				<span class="alert alert-danger" th:errors="*{email}">${m}</span>
-			</div>
-			
+
+			<th:block th:include="mensagemValidacao"></th:block>
+
 			<form th:action="@{save}" th:object="${lembrete}" method="post">
 				<div class="form-group row">
 					<div class="col-sm-4">
-						<label for="titulo">Título</label> 
-						<input type="text" class="form-control" name="titulo" id="titulo" 
-						placeholder="Digite seu título" />
+						<label for="titulo">Título</label> <input type="text"
+							class="form-control" name="titulo" id="titulo"
+							placeholder="Digite seu título" />
 					</div>
 				</div>
 				<div class="form-group row">
@@ -61,11 +62,10 @@ body {
 				</div>
 				<div class="form-group row">
 					<div class="col-sm-4">
-						<label for="data">Data</label> 
-						<input id="data" type="date"
-							pattern="dd/MM/yyyy" name="data" class="form-control" />
-						<small id="titulo" class="form-text text-muted">Seus
-							lembretes estarão seguros e ao seu alcance em qualquer lugar</small>
+						<label for="data">Data</label> <input id="data" type="date"
+							pattern="dd/MM/yyyy" name="data" class="form-control" /> <small
+							id="titulo" class="form-text text-muted">Seus lembretes
+							estarão seguros e ao seu alcance em qualquer lugar</small>
 					</div>
 				</div>
 				<div class="form-group" align="left">
@@ -80,4 +80,5 @@ body {
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="bootstrap/js/validator.js"></script>
 </body>
+
 </html>

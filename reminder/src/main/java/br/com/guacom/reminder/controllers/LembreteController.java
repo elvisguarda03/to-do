@@ -42,13 +42,9 @@ public class LembreteController {
 	public ModelAndView save(@ModelAttribute("lembrete") @Valid Lembrete lembrete, final BindingResult result, RedirectAttributes redirect) {
 		if (result.hasErrors()) {
 			ModelAndView andView = new ModelAndView("redirect:/");
-			Iterable<Lembrete> lembretes = service.findAll();
-			andView.addObject("lembretes", lembretes);
-			andView.addObject("lembrete", lembrete);
-			List<String> msgs = new ArrayList<String>();
-			for(ObjectError objectError : result.getAllErrors())
-				msgs.add(objectError.getDefaultMessage());
-			andView.addObject("msgs", msgs);
+			for(ObjectError objectError : result.getAllErrors()) {
+				redirect.addFlashAttribute("mensagem", objectError.getDefaultMessage());
+			}
 			return andView;
 		}
 		service.save(lembrete);
