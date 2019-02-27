@@ -114,6 +114,7 @@ public class Lembrete implements Serializable {
 		int value = Integer.parseInt((String)formatDate.subSequence(0, 2));
 		int increment = value + 1;
 		formatDate = formatDate.replace(String.valueOf(value), String.valueOf(increment));
+		formatDate = formatDate.replace("30", "20");
 		return formatDate;
 	}
 
