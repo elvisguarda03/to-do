@@ -111,6 +111,9 @@ public class Lembrete implements Serializable {
 		sb.append("/");
 		sb.append(formatDate.subSequence(0, 4));
 		formatDate = sb.toString();
+		int value = Integer.parseInt((String)formatDate.subSequence(0, 2));
+		int increment = value + 1;
+		formatDate = formatDate.replace(String.valueOf(value), String.valueOf(increment));
 		return formatDate;
 	}
 
