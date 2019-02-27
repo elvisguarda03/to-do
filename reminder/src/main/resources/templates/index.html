@@ -25,7 +25,7 @@ body {
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active"><a class="nav-link" href="/">Cadastrar<span
+					<li class="nav-item active"><a class="nav-link" href="/cadastro">Cadastrar<span
 							class="sr-only">(current)</span></a></li>
 					<li class="nav-item"><a class="nav-link" href="/lembretes">Visualizar
 							Lembretes</a></li>
@@ -38,47 +38,9 @@ body {
 	<div class="container" style="padding: 60px">
 		<div class="jumbotron" align="center">
 			<div align="left">
-				<h2>Novo Lembrete</h2>
-				<h5 style="font-weight: normal;">Crie os seus lembretes para
-					que os seus compromissos não sejam esquecidos!</h5>
+				<h1>Bem vindo ao sistema de armazenamento de Lembretes</h1>
 			</div>
-
-			<th:block th:include="mensagemValidacao"></th:block>
-
-			<form th:action="@{save}" th:object="${lembrete}" method="post">
-				<div class="form-group row">
-					<div class="col-sm-4">
-						<label for="titulo">Título</label> <input type="text"
-							class="form-control" name="titulo" id="titulo"
-							placeholder="Digite seu título" />
-					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-sm-4">
-						<label for="descricao">Descrição</label> <input type="text"
-							id="descricao" name="descricao" class="form-control"
-							placeholder="Digite sua Descrição" />
-					</div>
-				</div>
-				<div class="form-group row">
-					<div class="col-sm-4">
-						<label for="data">Data</label> <input id="data" type="date"
-							pattern="dd/MM/yyyy" name="data" class="form-control" /> <small
-							id="titulo" class="form-text text-muted">Seus lembretes
-							estarão seguros e ao seu alcance em qualquer lugar</small>
-					</div>
-				</div>
-				<div class="form-group" align="left">
-					<button type="submit" class="btn btn-info bt-30"
-						autofocus="autofocus">Salvar Lembrete</button>
-				</div>
-			</form>
 		</div>
 	</div>
-	<script type="text/javascript"
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="bootstrap/js/validator.js"></script>
 </body>
-
 </html>

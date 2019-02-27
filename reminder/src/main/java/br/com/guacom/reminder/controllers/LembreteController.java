@@ -26,7 +26,7 @@ public class LembreteController {
 	private LembreteService service;
 
 	@RequestMapping("/")
-	public String cadastro() {
+	public String index() {
 		return "index";
 	}
 
@@ -36,12 +36,17 @@ public class LembreteController {
 		model.addAttribute("listaDeLembretes", lembretes);
 		return "lembretes";
 	}
+	
+	@RequestMapping("/cadastro")
+	public String cadastro() {
+		return "cadastro";
+	}
 
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "save", method = RequestMethod.POST)
 	public ModelAndView save(@ModelAttribute("lembrete") @Valid Lembrete lembrete, final BindingResult result, RedirectAttributes redirect) {
 		if (result.hasErrors()) {
-			ModelAndView andView = new ModelAndView("redirect:/");
+			ModelAndView andView = new ModelAndView("redirect:/cadastro");
 			for(ObjectError objectError : result.getAllErrors()) {
 				redirect.addFlashAttribute("mensagem", objectError.getDefaultMessage());
 			}
