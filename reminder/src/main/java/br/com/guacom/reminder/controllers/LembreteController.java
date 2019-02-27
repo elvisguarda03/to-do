@@ -39,25 +39,21 @@ public class LembreteController {
 
 	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "save", method = RequestMethod.POST)
-	public ModelAndView save(@Valid Lembrete lembrete, final BindingResult result, RedirectAttributes redirect) {
+	public ModelAndView save(@ModelAttribute("lembrete") @Valid Lembrete lembrete, final BindingResult result, RedirectAttributes redirect) {
 		if (result.hasErrors()) {
-			ModelAndView andView = new ModelAndView("redirect:/index");
+			ModelAndView andView = new ModelAndView("redirect:/");
 			Iterable<Lembrete> lembretes = service.findAll();
 			andView.addObject("lembretes", lembretes);
 			andView.addObject("lembrete", lembrete);
-			
-			List<String> errors = new ArrayList<String>();			
+			List<String> msgs = new ArrayList<String>();
 			for(ObjectError objectError : result.getAllErrors())
-				errors.add(objectError.getDefaultMessage());
-			andView.addObject("msg", errors);
+				msgs.add(objectError.getDefaultMessage());
+			andView.addObject("msgs", msgs);
 			return andView;
 		}
 		service.save(lembrete);
-		Iterable<Lembrete> lembretes = service.findAll();
-		redirect.addFlashAttribute("msgResultado", "Registro salvo com sucesso!");
 		ModelAndView modelAndView = new ModelAndView("redirect:/lembretes");
-		modelAndView.addObject("lembretes", lembretes);
-		modelAndView.addObject("lembrete", new Lembrete());
+		modelAndView.addObject("Lembrete", new Lembrete());
 		return modelAndView;
 	}
 }

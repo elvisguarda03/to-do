@@ -13,6 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 import br.com.guacom.reminder.util.DateUtil;
 
@@ -28,32 +29,25 @@ public class Lembrete implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	@NotNull(message="Título obrigatório!")
+	
 	@NotEmpty(message="Título obrigatório!")
+	@NotNull(message="Título obrigatório!")
 	private String titulo;
 	private String descricao;
 
 	@Temporal(TemporalType.DATE)
 	@NotNull(message="Data obrigatória!")
-	@NotEmpty(message="Data obrigatória!")
 	private Date data;
 
-	public Lembrete(String titulo, String descricao, Date data) {
+	public Lembrete(String titulo, String descricao, String data) {
 		if (titulo == null || data == null)
 			throw new IllegalArgumentException("Os dados não foram cadastrados corretamente!");
 		this.titulo = titulo;
 		this.descricao = descricao;
-		this.data = data;
+		this.data = DateUtil.getDate(data);
 	}
 
-	public Lembrete(String titulo, String descricao) {
-		if (titulo == null)
-			throw new IllegalArgumentException("Os dados não foram cadastrados corretamente!");
-		this.titulo = titulo;
-		this.descricao = descricao;
-	}
-
-	public Lembrete(String titulo, Date data) {
+	public Lembrete(String data, String titulo) {
 		this(titulo, null, data);
 	}
 
@@ -66,8 +60,6 @@ public class Lembrete implements Serializable {
 	}
 
 	public void setTitulo(String titulo) {
-		if (titulo == null || titulo.isEmpty())
-			throw new IllegalArgumentException("O campo título está vázio!");
 		this.titulo = titulo;
 	}
 
@@ -127,8 +119,6 @@ public class Lembrete implements Serializable {
 	}
 
 	public void setData(String data) {
-		if (data == null)
-			throw new IllegalArgumentException("O campo de data está vázio!");
 		this.data = DateUtil.getDate(data);
 	}
 }

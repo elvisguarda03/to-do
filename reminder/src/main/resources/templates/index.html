@@ -13,6 +13,26 @@ body {
 </style>
 </head>
 <body>
+	<form>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		  <a class="navbar-brand" href="/" fixed="top">Cadastro de Lembretes</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+		    	<ul class="navbar-nav mr-auto">
+		      		<li class="nav-item active">
+		        		<a class="nav-link" href="/">Cadastrar<span class="sr-only">(current)</span></a>
+		      		</li>
+		      		<li class="nav-item">
+		        		<a class="nav-link" href="/lembretes">Visualizar Lembretes</a>
+		      		</li>
+		    	</ul>
+		   	</div>
+		  </nav>
+	</form>
+
+
 	<div class="container" style="padding: 60px">
 		<div class="jumbotron" align="center">
 			<div align="left">
@@ -20,31 +40,30 @@ body {
 				<h5 style="font-weight: normal;">Crie os seus lembretes para
 					que os seus compromissos não sejam esquecidos!</h5>
 			</div>
-			<form th:action="@{save}" th:object="${lembrete}"
-				data-toggle="validator" role="form" method="post">
+			<div th:each="m : ${msgs}">
+				<span class="alert alert-danger" th:errors="*{email}">${m}</span>
+			</div>
+			
+			<form th:action="@{save}" th:object="${lembrete}" method="post">
 				<div class="form-group row">
 					<div class="col-sm-4">
-						<label for="titulo">Título</label> <input type="text"
-							class="form-control" id="titulo" placeholder="Digite seu título"
-							data-error="Título obrigatório" required /> <span
-							class="glyphicon form-control-feedback" aria-hidden="true"></span>
-						<div class="help-block with-errors"></div>
+						<label for="titulo">Título</label> 
+						<input type="text" class="form-control" name="titulo" id="titulo" 
+						placeholder="Digite seu título" />
 					</div>
 				</div>
 				<div class="form-group row">
 					<div class="col-sm-4">
 						<label for="descricao">Descrição</label> <input type="text"
-							id="descricao" class="form-control"
+							id="descricao" name="descricao" class="form-control"
 							placeholder="Digite sua Descrição" />
 					</div>
 				</div>
 				<div class="form-group row">
 					<div class="col-sm-4">
-						<label for="data">Data</label> <input id="data" type="date"
-							pattern="dd/MM/yyyy" name="data" class="form-control"
-							data-error="Data obrigatória!" required /> <span
-							class="glyphicon form-control-feedback" aria-hidden="true"></span>
-						<div class="help-block with-errors"></div>
+						<label for="data">Data</label> 
+						<input id="data" type="date"
+							pattern="dd/MM/yyyy" name="data" class="form-control" />
 						<small id="titulo" class="form-text text-muted">Seus
 							lembretes estarão seguros e ao seu alcance em qualquer lugar</small>
 					</div>
