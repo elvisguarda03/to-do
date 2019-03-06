@@ -1,52 +1,57 @@
 package br.com.guacom.reminder.models;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Null;
 
-import br.com.guacom.reminder.util.DateUtil;
+import br.com.guacom.reminder.util.LocalDateUtil;
 
 @Entity
 @Table(name = "Lembrete")
 public class Lembrete implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
-	@NotEmpty(message="Título obrigatório!")
-	@NotNull(message="Título obrigatório!")
+
+	@NotEmpty(message = "Título obrigatório!")
 	private String titulo;
+	
+	@Column(name = "descricao", nullable = false)
 	private String descricao;
 
-	@Temporal(TemporalType.DATE)
-	@NotNull(message="Data obrigatória!")
-	private Date data;
+	@NotNull(message = "Data obrigatória!")
+	@Column(name = "data", nullable = true)
+	private LocalDate data;
 
-	public Lembrete(String titulo, String descricao, String data) {
-		if (titulo == null || data == null)
-			throw new IllegalArgumentException("Os dados não foram cadastrados corretamente!");
+	public Lembrete(String titulo, String descricao, LocalDate data) {
+		if (titulo.isBlank() || data == null)
+			throw new IllegalArgumentException("Os dados não foram preenchidos corretamente!");
 		this.titulo = titulo;
 		this.descricao = descricao;
-		this.data = DateUtil.getDate(data);
+		this.data = data;
 	}
 
+	public Lembrete(String titulo, String descricao, String data) {
+		if(titulo.isBlank() || data == null)
+			throw new IllegalArgumentException("Os dados não foram preenchidos corretamente!");
+		this.titulo = titulo;
+		this.descricao = descricao;
+		this.data = LocalDate.parse(data);
+	}
+	
 	public Lembrete(String data, String titulo) {
 		this(titulo, null, data);
 	}
@@ -60,6 +65,8 @@ public class Lembrete implements Serializable {
 	}
 
 	public void setTitulo(String titulo) {
+		if(titulo.isBlank())
+			throw new IllegalArgumentException("Título obrigatório!");
 		this.titulo = titulo;
 	}
 
@@ -96,33 +103,17 @@ public class Lembrete implements Serializable {
 		this.descricao = descricao;
 	}
 
-	public String dataToString() {
-		return data.toString();
+	public String dateToString() {
+		return LocalDateUtil.formatDate(data);
 	}
 
-	public String formatDate() {
-		String date = new SimpleDateFormat("yyyy-MM-dd").format(data);
-		String formatDate = "";
-		StringBuilder sb = new StringBuilder();
-		formatDate = date;
-		sb.append(formatDate.subSequence(8, 10));
-		sb.append("/");
-		sb.append(formatDate.subSequence(5, 7));
-		sb.append("/");
-		sb.append(formatDate.subSequence(0, 4));
-		formatDate = sb.toString();
-		int value = Integer.parseInt((String)formatDate.subSequence(0, 2));
-		int increment = value + 1;
-		formatDate = formatDate.replace(String.valueOf(value), String.valueOf(increment));
-		formatDate = formatDate.replace("30", "20");
-		return formatDate;
-	}
-
-	public Date getData() {
+	public LocalDate getData() {
 		return data;
 	}
 
 	public void setData(String data) {
-		this.data = DateUtil.getDate(data);
+		if (data.isBlank())
+			throw new IllegalArgumentException("Data obrigatória!");
+		this.data = LocalDate.parse(data);
 	}
 }
