@@ -1,6 +1,6 @@
 package br.com.guacom.reminder.controllers;
 
-import java.io.BufferedReader;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -32,7 +32,7 @@ public class LembreteController {
 	
 	@RequestMapping("/lembretes")
 	public String listaLembretes(Model model) {
-		Iterable<Lembrete> lembretes = service.findAll();
+		List<Lembrete> lembretes = service.findAll();
 		model.addAttribute("listaDeLembretes", lembretes);
 		return "lembretes";
 	}
@@ -47,7 +47,6 @@ public class LembreteController {
 		return "Você chegou ao paraiso dos erros!!!";
 	}
 
-	@SuppressWarnings("deprecation")
 	@PostMapping(value = "save")
 	public ModelAndView save(@ModelAttribute("lembrete") @Valid Lembrete lembrete, final BindingResult result,
 			RedirectAttributes redirect) {

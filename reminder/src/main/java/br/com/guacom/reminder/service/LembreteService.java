@@ -1,5 +1,6 @@
 package br.com.guacom.reminder.service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -19,7 +20,7 @@ public class LembreteService {
 		repository.save(lembrete);
 	}
 
-	public Iterable<Lembrete> findAll() {
+	public List<Lembrete> findAll() {
 		return repository.findAll();
 	}
 
